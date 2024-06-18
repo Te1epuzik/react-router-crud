@@ -1,9 +1,39 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-export const fetch = (url: string, deps = [], callback) => {
+const useJSONFetch = (url: string, options: RequestInit) => {
+	const [data, setData] = useState<JSON | null>(null);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState(null);
+
 	useEffect(() => {
-		fetch(url)
-			.then(response => response.json())
-			.then(value => callback(value))
-	}, deps);
+		if (!url) return;
+
+		const fetchData = async () => {
+			setLoading(true);
+			setError(null);
+
+
+			fetch(url, options)
+				.then(response => {
+					if (!response.ok) {
+						return response.json();
+					} else {
+						throw new Error(`Error! Status: ${response.status}`)
+					}
+				})
+				.then(data => {
+					setData(data)
+				})
+				.catch(error => setError(error.message))
+				.finally(() => {
+					setLoading(false);
+				});
+		}
+
+		fetchData();
+	}, [url, options]);
+
+	return { data, loading, error };
 }
+
+export default useJSONFetch;
