@@ -1,18 +1,28 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import './App.css';
+import { useRef } from 'react';
+import './App.scss';
 import useJSONFetch from './API/fetch';
 
-function App() {
-	
-	// console.log(useJSONFetch('http://localhost:7070/posts', {
-	// 	method: 'GET',
-	// }));
+import { NewPost } from './components/NewPost';
 
-  return (
-    <>
-      
-    </>
-  )
+function App() {
+	const fetchOptions = useRef<RequestInit>({ method: 'GET' })
+	const { data } = useJSONFetch(
+		'http://localhost:7070/posts', 
+		fetchOptions.current
+	);
+	console.log(data)
+
+	return (
+		<div className='posts'>
+			<header className='posts__header'>
+				<Link to='/posts/new' className='posts__new-btn button' type='button'>Создать пост</Link>
+			</header>
+			<Routes>
+				<Route path='/posts/new/*' element={<NewPost />} />
+			</Routes>
+		</div>
+	)
 }
 
 export default App

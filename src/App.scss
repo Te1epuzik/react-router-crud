@@ -1,0 +1,37 @@
+@import './Variables.scss';
+
+#root {
+	max-width: 1280px;
+	margin: 0 auto;
+	// padding: 2rem;
+	text-align: center;
+}
+
+.button {
+	color: inherit;
+	line-height: 0;
+	padding: 5px 10px;
+	border-radius: 5px;
+	background-color: $color-blue;
+	
+	transition: background-color 0.25s;
+}
+
+.button:hover {
+	color: inherit;
+	background-color: rgba($color-blue, 0.8);
+}
+
+.posts {
+	box-sizing: border-box;
+	padding: 20px;
+	width: 768px;
+	height: 100vh;
+	background-color: $color-light-gray;
+
+	.posts__header	{
+		@include block;
+		text-align: right;
+		background-color: $color-white;
+	}
+}

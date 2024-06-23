@@ -1,0 +1,12 @@
+$color-white: #fff;
+$color-black: #000;
+$color-gray: #dcdee1;
+$color-light-gray: #e8eaed;
+$color-blue: #4469ae;
+
+@mixin block {
+	box-sizing: border-box;
+	border: solid 1px $color-gray;
+	border-radius: 4px;
+	padding: 10px;
+}

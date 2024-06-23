@@ -1,0 +1,61 @@
+@import '../../Variables.scss';
+
+.new-post {
+	@include block;
+	margin-top: 20px;
+	background-color: $color-white;
+
+	.new-post__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.new-post__menu {
+
+			.new-post__menu-list {
+				padding: 0;
+				list-style: none;
+				display: flex;
+				flex-direction: row;
+				gap: 30px;
+
+				.new-post__menu-item {
+					position: relative;
+
+					.new-post__menu-link {
+						color: $color-blue;
+					}
+
+					.new-post__menu-link--active {
+						color: $color-black;
+					}
+				}
+
+				.new-post__menu-item::after {
+					content: '';
+					display: block;
+					position: absolute;
+					right: -15px;
+					top: 0;
+					height: 1.5rem;
+					border-left: solid 1px $color-gray;
+				}
+
+				.new-post__menu-item:last-child::after {
+					border: none;
+				}
+			}
+		}
+
+		.new-post__close {
+			display: flex;
+			align-items: center;
+
+			.new-post__close-img {
+				width: 100%;
+				object-fit: cover;
+				object-position: center center;
+			}
+		}
+	}
+}
