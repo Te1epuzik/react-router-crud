@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useJSONFetch = (url: string, options: RequestInit) => {
+const UseJSONFetch = (url: string, options: RequestInit) => {
 	const [data, setData] = useState<JSON | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState(null);
@@ -36,4 +36,4 @@ const useJSONFetch = (url: string, options: RequestInit) => {
 	return { data, loading, error };
 }
 
-export default useJSONFetch;
+export default UseJSONFetch;

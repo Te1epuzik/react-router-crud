@@ -1,9 +1,13 @@
 import classes from './newPost.module.scss';
+import { useState } from 'react';
 import { TMenu } from '../../models/newPostModel';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import closeIcon from '../../assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg';
+import UseJSONFetch from '../../API/fetch';
+import { v4 } from 'uuid';
 
 import { Publication } from './Publication';
+import { NotFound } from './NotFound';
 
 export const NewPost = () => {
 	const menuList: TMenu[] = [
@@ -29,6 +33,29 @@ export const NewPost = () => {
 		},
 	];
 
+	const [id, setId] = useState<string>('')
+	const [text, setText] = useState<string>('');
+	const textChange = (value: string) => {
+		setText(value);
+	};
+
+
+	const handleSubmit = () => {
+		setId(v4());
+		console.log(text);
+
+
+		const { data } = UseJSONFetch(
+			'http://localhost:7070/posts',
+			{
+				method: 'POST',
+				body: JSON.stringify({ id: id, content: text })
+			}
+		);
+
+		console.log(data);
+	};
+
 	return (
 		<div className={classes['new-post']}>
 			<header className={classes['new-post__header']}>
@@ -39,13 +66,13 @@ export const NewPost = () => {
 								key={menuItem.id}
 								className={classes['new-post__menu-item']}>
 								<NavLink
-									to={menuItem.link}
 									className={({ isActive }) =>
 										isActive
 											? classes['new-post__menu-link']
 											+ ' '
 											+ classes['new-post__menu-link--active']
-											: classes['new-post__menu-link']}>
+											: classes['new-post__menu-link']}
+									to={menuItem.link}>
 									{menuItem.name}
 								</NavLink>
 							</li>
@@ -61,10 +88,22 @@ export const NewPost = () => {
 			</header>
 			<div className={classes['new-post__body']}>
 				<Routes>
-					<Route path='/publication' element={<Publication />} />
+					<Route
+						path='/publication'
+						element={
+							<Publication
+								text={text}
+								onChange={textChange} />
+						} />
+					<Route path='*' element={<NotFound />} />
 				</Routes>
 			</div>
-			<footer className={classes['new-post__footer']}></footer>
+			<footer className={classes['new-post__footer']}>
+				<Link
+					to='/'
+					className={classes['new-post__make-post'] + ' ' + 'button'}
+					onClick={handleSubmit}>Опубликовать</Link>
+			</footer>
 		</div>
 	)
 }
