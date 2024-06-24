@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const UseJSONFetch = (url: string, options: RequestInit) => {
 	const [data, setData] = useState<JSON | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
@@ -15,7 +15,7 @@ const UseJSONFetch = (url: string, options: RequestInit) => {
 
 			fetch(url, options)
 				.then(response => {
-					if (!response.ok) {
+					if (response.ok) {
 						return response.json();
 					} else {
 						throw new Error(`Error! Status: ${response.status}`)

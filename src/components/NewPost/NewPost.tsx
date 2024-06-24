@@ -69,7 +69,7 @@ export const NewPost = () => {
 			'http://localhost:7070/posts',
 			{
 				method: 'POST',
-				body: JSON.stringify({ id: id, content: text })
+				body: JSON.stringify({ id: 0, content: text })
 			}
 		);
 
