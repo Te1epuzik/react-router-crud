@@ -33,14 +33,34 @@ export const NewPost = () => {
 		},
 	];
 
+	const getSavedText = (): string => {
+		const text = localStorage.getItem('text');
+		if (typeof text === 'string') {
+			return text;
+		} else {
+			return '';
+		}
+	}
+
 	const [id, setId] = useState<string>('')
-	const [text, setText] = useState<string>('');
+	const [text, setText] = useState<string>(getSavedText());
+
 	const textChange = (value: string) => {
-		setText(value);
+		if (typeof value === 'string') {
+			setText(value);
+		}
+
+		if (value === null) {
+			localStorage.removeItem('text');
+			return;
+		}
+
+		localStorage.setItem('text', value)
 	};
 
 
 	const handleSubmit = () => {
+		localStorage.removeItem('text');
 		setId(v4());
 		console.log(text);
 
