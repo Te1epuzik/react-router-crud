@@ -1,7 +1,7 @@
 import classes from './newPost.module.scss';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { TMenu } from '../../models/newPostModel';
-import { Routes, Route, NavLink, Link } from 'react-router-dom';
+import { Routes, Route, NavLink, Link, useNavigate } from 'react-router-dom';
 import closeIcon from '../../assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg';
 import UseJSONFetch from '../../API/fetch';
 import { v4 } from 'uuid';
@@ -10,6 +10,8 @@ import { Publication } from './Publication';
 import { NotFound } from './NotFound';
 
 export const NewPost = () => {
+	const navigate = useNavigate();
+
 	const menuList: TMenu[] = [
 		{
 			name: 'Публикация',
@@ -55,11 +57,13 @@ export const NewPost = () => {
 			return;
 		}
 
-		localStorage.setItem('text', value)
+		localStorage.setItem('text', value);
 	};
 
 
-	const handleSubmit = () => {
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		navigate('/');
 		localStorage.removeItem('text');
 		setId(v4());
 		console.log(text);
@@ -69,7 +73,7 @@ export const NewPost = () => {
 			'http://localhost:7070/posts',
 			{
 				method: 'POST',
-				body: JSON.stringify({ id: 0, content: text })
+				body: JSON.stringify({ id: id, content: text })
 			}
 		);
 
@@ -77,7 +81,9 @@ export const NewPost = () => {
 	};
 
 	return (
-		<div className={classes['new-post']}>
+		<form
+			onSubmit={handleSubmit}
+			className={classes['new-post']}>
 			<header className={classes['new-post__header']}>
 				<nav className={classes['new-post__menu']}>
 					<ul className={classes['new-post__menu-list']}>
@@ -119,11 +125,12 @@ export const NewPost = () => {
 				</Routes>
 			</div>
 			<footer className={classes['new-post__footer']}>
-				<Link
-					to='/'
-					className={classes['new-post__make-post'] + ' ' + 'button'}
-					onClick={handleSubmit}>Опубликовать</Link>
+				<button
+					type='submit'
+					className={classes['new-post__make-post'] + ' ' + 'button'}>
+					Опубликовать
+				</button>
 			</footer>
-		</div>
+		</form>
 	)
 }

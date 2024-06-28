@@ -12,22 +12,33 @@ const UseJSONFetch = (url: string, options: RequestInit) => {
 			setLoading(true);
 			setError(null);
 
-
-			fetch(url, options)
-				.then(response => {
-					if (response.ok) {
-						return response.json();
-					} else {
-						throw new Error(`Error! Status: ${response.status}`)
-					}
-				})
-				.then(data => {
-					setData(data)
-				})
-				.catch(error => setError(error.message))
-				.finally(() => {
-					setLoading(false);
-				});
+			try {
+				const response: Response = await fetch(url, options)
+				if (!response.ok) {
+					throw new Error(response.statusText);
+				}
+				const dataJSON: JSON = await response.json();
+				setData(dataJSON);
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setLoading(false);
+			}
+			// fetch(url, options)
+			// 	.then(response => {
+			// 		if (response.ok) {
+			// 			return response.json();
+			// 		} else {
+			// 			throw new Error(`Error! Status: ${response.status}`)
+			// 		}
+			// 	})
+			// 	.then(data => {
+			// 		setData(data)
+			// 	})
+			// 	.catch(error => setError(error.message))
+			// 	.finally(() => {
+			// 		setLoading(false);
+			// 	});
 		}
 
 		fetchData();
