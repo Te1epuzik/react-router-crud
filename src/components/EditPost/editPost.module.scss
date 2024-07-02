@@ -1,0 +1,79 @@
+@import "../../Variables.scss";
+
+.avatar-img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.edit {
+	overflow: hidden;
+  color: $color-black;
+  position: relative;
+  margin-top: 20px;
+  @include block;
+  background-color: $color-white;
+
+  .header {
+    position: relative;
+    margin: -10px;
+    padding: 10px;
+    background-color: $color-bg-gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+
+    .close {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .header::after {
+    content: "";
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-bottom: solid 1px $color-gray;
+  }
+
+  .body {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    .avatar {
+      overflow: hidden;
+      border: solid 1px $color-gray;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+    }
+
+    .edit-textarea {
+      @include block;
+      color: $color-black;
+      background-color: $color-white;
+      resize: none;
+      width: 90%;
+    }
+
+		.edit-textarea:focus {
+			outline: solid 1px $color-black;
+		}
+  }
+
+	.footer {
+		margin: 20px -10px -10px;
+		padding: 10px;
+		background-color: $color-bg-gray;
+		border-top: solid 1px $color-gray;
+		text-align: right;
+
+		.save-btn {
+			color: $color-white;
+		}
+	}
+}

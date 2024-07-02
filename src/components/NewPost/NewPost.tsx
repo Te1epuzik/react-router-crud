@@ -66,6 +66,9 @@ export const NewPost = ({ URL, incrementPosts }: TProps) => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+		if (text.length === 0) {
+			return;
+		}
     navigate("/");
     localStorage.removeItem("text");
     setId(v4());
