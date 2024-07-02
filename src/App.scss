@@ -24,7 +24,7 @@
 	box-sizing: border-box;
 	padding: 20px;
 	width: 768px;
-	height: 100vh;
+	min-height: 100vh;
 	background-color: $color-light-gray;
 
 	.posts__header	{

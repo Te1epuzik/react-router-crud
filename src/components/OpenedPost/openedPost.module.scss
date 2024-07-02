@@ -1,0 +1,6 @@
+@import "../../Variables.scss";
+@import "../AllPosts/Post/post.module.scss";
+
+.post-alone {
+	@extend .post
+}

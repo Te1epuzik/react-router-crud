@@ -1,0 +1,129 @@
+@import '../../../Variables.scss';
+
+.avatar-img {
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.post {
+	color: $color-black;
+	position: relative;
+	margin-top: 20px;
+	@include block;
+	background-color:$color-white;
+	
+	.header {
+		display: flex;
+		text-align: left;
+		gap: 10px;
+
+		.avatar {
+			overflow: hidden;
+			border: solid 1px $color-gray;
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
+			cursor: pointer;
+		}
+
+		.autor {
+			
+			.name {
+				color: $color-blue;
+				font-weight: 600;
+				letter-spacing: .1px;
+				cursor: pointer;
+			}
+
+			.status {
+				font-size: 14px;
+				font-weight: 600;
+				color: $color-dark-gray;
+				user-select: none;
+
+				.date {
+					font-weight: 400;
+				}
+			}
+		}
+	}
+
+	.content {
+		position: relative;
+		text-align: left;
+		font-size: 24px;
+		margin: 10px 0 0 0;
+	}
+
+	.content::after {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 0;
+		width: 100%;
+		border-bottom: solid 1px $color-gray;
+	}
+
+	.reaction {
+		margin-top: 20px;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 25%;
+		color: $color-dark-gray;
+		font-size: 14px;
+		font-weight: 600;
+
+		.like-btn,
+		.comment-btn {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			cursor: pointer;
+			user-select: none;
+		}
+	}
+
+	.comment::before {
+		content: '';
+		position: absolute;
+		bottom: 60px;
+		left: 0;
+		width: 100%;
+		border-top: solid 1px $color-gray;
+	}
+
+	.comment {
+		margin-top: 30px;
+		display: flex;
+		justify-content: space-between;
+		
+
+		.comment-avatar {
+			overflow: hidden;
+			border: solid 1px $color-gray;
+			border-radius: 50%;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+		.comment-input {
+			color: $color-black;
+			padding: 0 10px;
+			box-sizing: border-box;
+			border: solid 1px $color-gray;
+			background-color: $color-light-gray;
+			width: 90%;
+			height: 30px;
+			border-radius: 15px;
+		}
+
+		.comment-input:focus {
+			outline: 1px solid $color-dark-gray;
+			outline-offset: -1px;
+		}
+	}
+}

@@ -1,17 +1,93 @@
-import { Routes, Route } from 'react-router-dom';
-import './App.scss';
+import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import "./App.scss";
 
-import { NewPost } from './components/NewPost';
-import { LayOut } from './components/LayOut';
+import { TData } from "./models/fetchModel";
+
+import { NewPost } from "./components/NewPost";
+import { LayOut } from "./components/LayOut";
+import { OpenedPost } from "./components/OpenedPost";
 
 function App() {
-	return (
-		<Routes>
-			<Route path='/' element={<LayOut />}>
-				<Route path='/posts/new/*' element={<NewPost />} />
-			</Route>
-		</Routes>
-	)
+  const URL: string = "http://localhost:7070/posts";
+  const [postsQuantity, setPostsQuantity] = useState(0);
+
+  const incrementPosts = (): void => {
+    setPostsQuantity((prev) => prev + 1);
+  };
+
+	const calcLeftTimeInData = (data: TData[]): TData[] => {
+		const finallyData: TData[] = [];
+	
+		data.forEach((post: TData) => {
+			const leftTime = getLeftTime(post.created as number);
+			finallyData.push({...post, created: leftTime})
+		});
+			
+		return finallyData;
+	};
+
+  const getLeftTime = (created: number): string => {
+    const date = new Date();
+    const leftTime: number = (date.getTime() - created) / 1000;
+
+    if ((leftTime / 60) % 60 < 1) {
+      return "только что";
+    } else if (leftTime / 3600 < 1) {
+      const minutes: number = Math.floor((leftTime / 60) % 60);
+
+      return `${minutes} мин.`;
+    } else if (leftTime / 86400 < 1) {
+      const hours: number = Math.floor(leftTime / 3600);
+      let hourWord: string;
+
+      switch (hours) {
+        case 1:
+          hourWord = "час";
+          break;
+        case 2:
+        case 3:
+        case 4:
+          hourWord = "часа";
+          break;
+        default:
+          hourWord = "часов";
+          break;
+      }
+
+      return `${hours} ${hourWord}`;
+    } else if (leftTime / 86400 < 2) {
+      return "вчера";
+    } else {
+      const days = Math.floor(leftTime / 86400);
+      let dayWord: string;
+
+      if (days < 5) {
+        dayWord = "дня";
+      } else {
+        dayWord = "дней";
+      }
+
+      return `${days} ${dayWord}`;
+    }
+  };
+
+  return (
+    <div className="posts">
+      <Routes>
+        <Route
+          path="/"
+          element={<LayOut URL={URL} postsQuantity={postsQuantity} calcLeftTimeInData={calcLeftTimeInData} />}
+        >
+          <Route
+            path="/posts/new/*"
+            element={<NewPost URL={URL} incrementPosts={incrementPosts} />}
+          />
+        </Route>
+        <Route path="/posts/:id" element={<OpenedPost URL={URL} calcLeftTimeInData={calcLeftTimeInData} />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
