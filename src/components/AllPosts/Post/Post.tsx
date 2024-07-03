@@ -2,8 +2,8 @@ import classes from "./post.module.scss";
 import { useState, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
-import avatarPNG from "../../../assets/avatar.png";
-import commentIcon from "../../../assets/comment.svg";
+import avatarPNG from "@/assets/avatar.png";
+import commentIcon from "@/assets/comment.svg";
 import { LikeIcon } from "./LikeIcon";
 
 type TProps = {

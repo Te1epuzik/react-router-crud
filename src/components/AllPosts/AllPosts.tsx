@@ -1,6 +1,6 @@
 import classes from "./allPosts.module.scss";
 import { useEffect, useState } from "react";
-import { TData } from "../../models/fetchModel";
+import { TData } from "@/models/fetchModel";
 
 import { Post } from "./Post";
 

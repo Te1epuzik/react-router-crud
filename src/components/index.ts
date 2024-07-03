@@ -1,0 +1,5 @@
+export * from "@components/AllPosts"
+export * from "@components/EditPost"
+export * from "@components/LayOut"
+export * from "@components/NewPost"
+export * from "@components/OpenedPost"

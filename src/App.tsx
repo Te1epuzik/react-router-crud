@@ -4,36 +4,33 @@ import "./App.scss";
 
 import { TData } from "./models/fetchModel";
 
-import { NewPost } from "./components/NewPost";
-import { LayOut } from "./components/LayOut";
-import { OpenedPost } from "./components/OpenedPost";
-import { EditPost } from "./components/EditPost";
+import { NewPost, LayOut, OpenedPost, EditPost } from "@/components";
 
 function App() {
   const URL: string = "http://localhost:7070/posts";
   const [postsQuantity, setPostsQuantity] = useState(0);
-	const [id, setId] = useState<string>('');
-	const [content, setContent] = useState<string>('');
+  const [id, setId] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
   const incrementPosts = (): void => {
     setPostsQuantity((prev) => prev + 1);
   };
 
-	const calcLeftTimeInData = (data: TData[]): TData[] => {
-		const finallyData: TData[] = [];
-	
-		data.forEach((post: TData) => {
-			const leftTime = getLeftTime(post.created as number);
-			finallyData.push({...post, created: leftTime})
-		});
-			
-		return finallyData;
-	};
+  const calcLeftTimeInData = (data: TData[]): TData[] => {
+    const finallyData: TData[] = [];
 
-	const getPost = (id: string, content: string): void => {
-		setId(id);
-		setContent(content);
-	}
+    data.forEach((post: TData) => {
+      const leftTime = getLeftTime(post.created as number);
+      finallyData.push({ ...post, created: leftTime });
+    });
+
+    return finallyData;
+  };
+
+  const getPost = (id: string, content: string): void => {
+    setId(id);
+    setContent(content);
+  };
 
   const getLeftTime = (created: number): string => {
     const date = new Date();
@@ -85,15 +82,33 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<LayOut URL={URL} postsQuantity={postsQuantity} calcLeftTimeInData={calcLeftTimeInData} />}
+          element={
+            <LayOut
+              URL={URL}
+              postsQuantity={postsQuantity}
+              calcLeftTimeInData={calcLeftTimeInData}
+            />
+          }
         >
           <Route
             path="/posts/new/*"
             element={<NewPost URL={URL} incrementPosts={incrementPosts} />}
           />
         </Route>
-        <Route path="/posts/:id" element={<OpenedPost URL={URL} calcLeftTimeInData={calcLeftTimeInData} getPost={getPost} />} />
-				<Route path="/posts/edit" element={<EditPost id={id} content={content} URL={URL} />} />
+        <Route
+          path="/posts/:id"
+          element={
+            <OpenedPost
+              URL={URL}
+              calcLeftTimeInData={calcLeftTimeInData}
+              getPost={getPost}
+            />
+          }
+        />
+        <Route
+          path="/posts/edit"
+          element={<EditPost id={id} content={content} URL={URL} />}
+        />
       </Routes>
     </div>
   );

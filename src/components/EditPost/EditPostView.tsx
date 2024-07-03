@@ -1,6 +1,6 @@
 import classes from "./editPost.module.scss";
-import avatarPNG from "../../assets/avatar.png";
-import closeIcon from "../../assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import avatarPNG from "@/assets/avatar.png";
+import closeIcon from "@/assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import { ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 

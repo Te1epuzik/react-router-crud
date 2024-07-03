@@ -1,7 +1,7 @@
 import classes from "./publication.module.scss";
-import avatarImg from "../../../assets/avatar.png";
+import avatarImg from "@/assets/avatar.png";
 import { ChangeEvent } from "react";
-import { TProps } from "../../../models/publicationPropsModel";
+import { TProps } from "@/models/publicationPropsModel";
 
 export const Publication = ({ text, onChange }: TProps) => {
   const handleTextInput = (event: ChangeEvent<HTMLTextAreaElement>) => {

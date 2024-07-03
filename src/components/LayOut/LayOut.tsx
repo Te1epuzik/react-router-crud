@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
-import { AllPosts } from "../AllPosts";
-import { TData } from "../../models/fetchModel";
+import { AllPosts } from "@components/AllPosts";
+import { TData } from "@/models/fetchModel";
 
 type TProps = {
   URL: string;

@@ -1,13 +1,13 @@
-import { TData } from "../../models/fetchModel";
+import { TData } from "@/models/fetchModel";
 import classes from "./openedPost.module.scss";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import avatarPNG from "../../assets/avatar.png";
-import commentIcon from "../../assets/comment.svg";
-import closeIcon from "../../assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import avatarPNG from "@/assets/avatar.png";
+import commentIcon from "@/assets/comment.svg";
+import closeIcon from "@/assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 
-import { LikeIcon } from "../AllPosts/Post/LikeIcon";
+import { LikeIcon } from "@components/AllPosts/Post/LikeIcon";
 
 type TProps = {
   URL: string;
@@ -108,7 +108,6 @@ export const OpenedPost = ({ URL, calcLeftTimeInData, getPost }: TProps) => {
         const dataJSON: TData[] = await response.json();
         const finallyData: TData[] = calcLeftTimeInData(dataJSON);
         setData(finallyData);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -118,8 +117,6 @@ export const OpenedPost = ({ URL, calcLeftTimeInData, getPost }: TProps) => {
   }, []);
 
   const post = data.find((post) => +post.id === +id);
-
-  console.log(data);
 
   const handleLike = () => {
     setLiked(!liked);

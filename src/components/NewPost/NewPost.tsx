@@ -1,8 +1,8 @@
 import classes from "./newPost.module.scss";
 import { useState, FormEvent } from "react";
-import { TMenu } from "../../models/newPostModel";
+import { TMenu } from "@/models/newPostModel";
 import { Routes, Route, NavLink, Link, useNavigate } from "react-router-dom";
-import closeIcon from "../../assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
+import closeIcon from "@/assets/close_24dp_FILL0_wght400_GRAD0_opsz24.svg";
 import { v4 } from "uuid";
 
 import { Publication } from "./Publication";
